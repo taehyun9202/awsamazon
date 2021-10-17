@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import HomeBanner from "../components/layouts/HomeBanner";
+import ProductGrid from "../components/Products/ProductGrid";
 
 export default function Home() {
   const profile = useSelector((state) => state.profile);
@@ -14,7 +16,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <p className="text-indigo-400">hello</p>
+      <div className="max-w-7xl mx-auto px-2 py-10">
+        {/* <HomeBanner /> */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-10 z-10">
+          <ProductGrid />
+          <ProductGrid />
+          <ProductGrid />
+          <ProductGrid />
+          <ProductGrid />
+          <ProductGrid />
+          <ProductGrid />
+        </div>
+      </div>
     </div>
   );
 }
