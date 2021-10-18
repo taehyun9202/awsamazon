@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Modals from "./Modals";
 
 const Footer = () => {
   return (
@@ -106,6 +107,8 @@ const Footer = () => {
           <Image src="/logo.png" layout="fill" alt="logo" />
         </div>
       </div>
+
+      <Modals />
     </div>
   );
 };

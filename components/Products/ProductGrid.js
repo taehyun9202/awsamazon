@@ -2,7 +2,7 @@ import React from "react";
 
 const ProductGrid = () => {
   return (
-    <div className="shadow-xl w-72 h-80 rounded mix-blend-saturation z-10">
+    <div className="shadow-xl w-72 h-80 rounded mix-blend-saturation z-10 mx-auto">
       <p>product title</p>
       <p>product image</p>
       <p>product price</p>

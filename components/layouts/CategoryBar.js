@@ -22,40 +22,40 @@ const CategoryBar = () => {
         All
       </p>
       <div className="flex-1 flex gap-1 2xl:gap-2">
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden sm:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Customer Service
         </p>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden sm:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Buy Again
         </p>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden sm:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Sports & Fitness
         </p>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden sm:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Shopper ToolKit
         </p>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden lg:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Registry
         </p>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden lg:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Amazon Prime
         </p>
         <Link href="/sell">
-          <a className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+          <a className="hidden lg:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
             Sell
           </a>
         </Link>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden xl:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Gift Cards
         </p>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden xl:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Coupons
         </p>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+        <p className="hidden xl:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Amazon Basics
         </p>
       </div>
-      <p className="flex items-center text-sm font-bold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+      <p className="hidden md:flex items-center text-sm font-bold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
         Shop epic deals on Top Brands
       </p>
     </div>
