@@ -1,16 +1,23 @@
 import React from "react";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HeaderInput from "../utils/HeaderInput";
 import CategoryBar from "./CategoryBar";
+import { useRouter } from "next/dist/client/router";
+import { setModalOpen } from "../../store/actions/utilAction";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
+  const router = useRouter();
   return (
     <>
       <div className="bg-header px-2 sm:px-4 text-white gap-2">
         <div className="flex items-center justify-between h-16">
-          <div className="relative h-10 w-28 flex-shrink-0 object-fit cursor-pointer ring-0 ring-white border-8 border-transparent  rounded-sm hover:ring-1">
+          <div
+            onClick={() => router.push("/")}
+            className="relative h-10 w-28 flex-shrink-0 object-fit cursor-pointer ring-0 ring-white border-8 border-transparent  rounded-sm hover:ring-1"
+          >
             <Image className="my-1" src="/logo.png" layout="fill" alt="logo" />
           </div>
 
@@ -56,7 +63,11 @@ const Header = () => {
 
           <div className="flex">
             <div className="flex gap-1 justify-center items-center cursor-pointer h-10 p-1 ring-1 ring-transparent rounded-sm hover:ring-white">
-              <div>
+              <div
+                onClick={() => {
+                  profile.token ? null : router.push("/profile/signIn");
+                }}
+              >
                 <p className="text-xs font-semibold">
                   Hello, {profile.token ? "Username" : "Sign in"}
                 </p>
@@ -85,7 +96,10 @@ const Header = () => {
               </div>
             </div>
 
-            <div className="flex justify-center items-center cursor-pointer h-10 pt-3 p-1 ring-1 ring-transparent rounded-sm hover:ring-white">
+            <div
+              onClick={() => dispatch(setModalOpen("cart", true))}
+              className="flex justify-center items-center cursor-pointer h-10 pt-3 p-1 ring-1 ring-transparent rounded-sm hover:ring-white"
+            >
               <p className="relative flex gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

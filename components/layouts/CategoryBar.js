@@ -1,10 +1,16 @@
 import React from "react";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setModalOpen } from "../../store/actions/utilAction";
 
 const CategoryBar = () => {
+  const dispatch = useDispatch();
   return (
     <div className="bg-category h-10 text-white flex justify-between items-center px-2 sm:px-4 gap-1">
-      <p className="flex justify-center items-center text-sm font-semibold gap-1 cursor-pointer h-7 p-1 ring-1 ring-transparent rounded-sm hover:ring-white">
+      <p
+        onClick={() => dispatch(setModalOpen("menu", true))}
+        className="flex justify-center items-center text-sm font-semibold gap-1 cursor-pointer h-7 p-1 ring-1 ring-transparent rounded-sm hover:ring-white"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-4 w-4"
@@ -22,9 +28,16 @@ const CategoryBar = () => {
         All
       </p>
       <div className="flex-1 flex gap-1 2xl:gap-2">
-        <p className="hidden sm:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
-          Customer Service
-        </p>
+        <Link href="/customerservice">
+          <a className="hidden sm:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+            Customer Service
+          </a>
+        </Link>
+        <Link href="/sell">
+          <a className="hidden sm:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+            Sell
+          </a>
+        </Link>
         <p className="hidden sm:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Buy Again
         </p>
@@ -40,11 +53,6 @@ const CategoryBar = () => {
         <p className="hidden lg:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Amazon Prime
         </p>
-        <Link href="/sell">
-          <a className="hidden lg:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
-            Sell
-          </a>
-        </Link>
         <p className="hidden xl:flex max-w-max items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Gift Cards
         </p>

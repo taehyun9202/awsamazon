@@ -6,7 +6,23 @@ const SellGrid = ({ svg, title, description, refText, link }) => {
       {svg}
       <p className="text-2xl font-extrabold py-4">{title}</p>
       <p className="text-sm pb-4 flex-1">{description}</p>
-      <p className="text-xs">{refText} =></p>
+      <p className="text-xs flex gap-2 items-center">
+        {refText}{" "}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-3 w-3 mt-0.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeWinejoin="round"
+            strokeWidth="2"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"
+          />
+        </svg>
+      </p>
     </div>
   );
 };
