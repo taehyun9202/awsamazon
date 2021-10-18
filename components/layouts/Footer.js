@@ -1,9 +1,10 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="bg-category">
+    <div className="bg-header">
       <div className="max-w-3xl mx-auto flex justify-between items-start text-gray-400 pt-10 pb-16 px-2 sm:px-4">
         <div className="flex flex-col gap-2 px-2">
           <p className="font-semibold text-sm text-white">Get to Know Us</p>
@@ -17,9 +18,11 @@ const Footer = () => {
         </div>
         <div className="flex flex-col gap-2 px-2">
           <p className="font-semibold text-sm text-white">Make Money with Us</p>
-          <p className="text-xs hover:underline cursor-pointer">
-            Sell products on Amazon
-          </p>
+          <Link href="/sell">
+            <a className="text-xs hover:underline cursor-pointer">
+              Sell products on Amazon
+            </a>
+          </Link>
           <p className="text-xs hover:underline cursor-pointer">
             Sell apps on Amazon
           </p>

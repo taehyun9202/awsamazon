@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const CategoryBar = () => {
   return (
@@ -39,9 +40,11 @@ const CategoryBar = () => {
         <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Amazon Prime
         </p>
-        <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
-          Sell
-        </p>
+        <Link href="/sell">
+          <a className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
+            Sell
+          </a>
+        </Link>
         <p className="max-w-max flex items-center text-sm font-semibold cursor-pointer px-2 h-6 ring-1 ring-transparent border-transparent rounded-sm hover:ring-white">
           Gift Cards
         </p>

@@ -5,15 +5,16 @@ import { useRouter } from "next/dist/client/router";
 const SellerHeader = () => {
   const router = useRouter();
   const [openSearch, setOpenSearch] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
   return (
-    <>
+    <div className="fixed w-full z-10 bg-white">
       <div className="bg-category">
         <div
           className={`${
             openSearch ? "h-0" : "h-10 delay-500"
           } transform duration-500 max-w-7xl mx-auto w-full flex justify-between items-center text-white overflow-hidden`}
         >
-          <p className="text-sm">
+          <p className="text-sm invisible md:visible">
             Amazon Accelerate: A free virtual event October 20–21.{" "}
             <Link href="#">
               <a className="underline">Learn more</a>
@@ -21,7 +22,7 @@ const SellerHeader = () => {
           </p>
 
           <div className="flex gap-10">
-            <p className="flex gap-2 justify-center items-center cursor-pointer py-1 px-3 rounded-full transform duration-500 hover:bg-gray-700">
+            <p className="flex-shrink-0 flex gap-2 justify-center items-center cursor-pointer py-1 px-3 rounded-full transform duration-500 hover:bg-gray-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4"
@@ -38,7 +39,7 @@ const SellerHeader = () => {
               </svg>
               English
             </p>
-            <p className="flex gap-2 justify-center items-center cursor-pointer py-1 px-3 rounded-full transform duration-500 hover:bg-gray-700">
+            <p className="flex-shrink-0 flex gap-2 justify-center items-center cursor-pointer py-1 px-3 rounded-full transform duration-500 hover:bg-gray-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4"
@@ -58,7 +59,7 @@ const SellerHeader = () => {
           </div>
         </div>
       </div>
-      <div className="shadow-lg h-20 flex justify-between items-center">
+      <div className="shadow-2xl h-20 flex justify-between items-center px-2 sm:px-4">
         <div className="max-w-7xl mx-auto w-full flex justify-between items-center h-full">
           <div className="flex justify-center items-center gap-6 h-full">
             <div
@@ -72,7 +73,7 @@ const SellerHeader = () => {
                 alt="logo"
               />
             </div>
-            <p className="gap-1 flex justify-center items-center font-semibold text-sm cursor-pointer h-full border-b-4 border-transparent transform duration-500 hover:border-indigo-400">
+            <p className="hidden sm:flex gap-1 justify-center items-center font-semibold text-sm cursor-pointer h-full border-b-4 border-transparent transform duration-500 hover:border-indigo-400">
               Start
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +90,7 @@ const SellerHeader = () => {
                 />
               </svg>
             </p>
-            <p className="gap-1 flex justify-center items-center font-semibold text-sm cursor-pointer h-full border-b-4 border-transparent transform duration-500 hover:border-indigo-400">
+            <p className="hidden sm:flex gap-1 justify-center items-center font-semibold text-sm cursor-pointer h-full border-b-4 border-transparent transform duration-500 hover:border-indigo-400">
               Grow
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +107,7 @@ const SellerHeader = () => {
                 />
               </svg>
             </p>
-            <p className="gap-1 flex justify-center items-center font-semibold text-sm cursor-pointer h-full border-b-4 border-transparent transform duration-500 hover:border-indigo-400">
+            <p className="hidden sm:flex gap-1 justify-center items-center font-semibold text-sm cursor-pointer h-full border-b-4 border-transparent transform duration-500 hover:border-indigo-400">
               Learn
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +124,7 @@ const SellerHeader = () => {
                 />
               </svg>
             </p>
-            <p className="gap-1 flex justify-center items-center font-semibold text-sm cursor-pointer h-full border-b-4 border-transparent transform duration-500 hover:border-indigo-400">
+            <p className="hidden md:flex gap-1 justify-center items-center font-semibold text-sm cursor-pointer h-full border-b-4 border-transparent transform duration-500 hover:border-indigo-400">
               Pricing
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +148,10 @@ const SellerHeader = () => {
             </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              onClick={() => setOpenSearch(!openSearch)}
+              onClick={() => {
+                setOpenSearch(!openSearch);
+                setSearchInput("");
+              }}
               className="h-6 w-6 text-gray-400 cursor-pointer hover:text-blue-400"
               fill="none"
               viewBox="0 0 24 24"
@@ -165,10 +169,47 @@ const SellerHeader = () => {
       </div>
       <div
         className={`${
-          openSearch ? "h-56" : "h-0 delay-500"
+          openSearch ? "h-56 shadow-2xl" : "h-0 delay-500"
         } transform duration-500 overflow-hidden flex flex-col gap-2 bg-indigo-400 w-full justify-center items-center `}
       >
-        <input type="text" className="h-10 w-96 z-20" />
+        <div className="relative">
+          <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="h-12 w-96 px-12 outline-none border-none rounded-md"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 absolute top-3 left-3 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          {searchInput && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 absolute top-3 right-3 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          )}
+        </div>
         <div className="flex justify-center items-center gap-4 text-white">
           <p className="text-sm">Quick Links: </p>
           <p className="text-sm font-semibold underline">Selling on Amazon</p>
@@ -178,15 +219,16 @@ const SellerHeader = () => {
         </div>
       </div>
 
-      {openSearch && (
-        <div
-          onClick={() => {
-            setOpenSearch(false);
-          }}
-          className="absolute inset-0 w-full h-screen z-10 bg-black opacity-50"
-        ></div>
-      )}
-    </>
+      <div
+        onClick={() => {
+          setOpenSearch(false);
+          setSearchInput("");
+        }}
+        className={`
+          ${openSearch ? "delay-300 h-screen" : "h-0"}
+          absolute top-72 mt-4 w-full bg-gray-50 opacity-10 transform`}
+      />
+    </div>
   );
 };
 
