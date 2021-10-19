@@ -1,9 +1,21 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Auth } from "aws-amplify";
 
 const SignIn = () => {
   const router = useRouter();
+
+  const signIn = async () => {
+    try {
+      await Auth.signIn(email, password);
+      setUiState("signedIn");
+      checkUser();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto flex flex-col justify-center items-center h-full py-32">
       <div className="border rounded-sm w-96 p-4 flex flex-col">

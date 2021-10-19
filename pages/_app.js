@@ -6,10 +6,12 @@ import store from "../store/store";
 import Header from "../components/layouts/Header";
 import Footer from "../components/layouts/Footer";
 import { useRouter } from "next/dist/client/router";
+import config from "../aws-exports";
+import Amplify from "aws-amplify";
+Amplify.configure(config);
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  console.log(router);
   return (
     <Provider store={store}>
       {!router.pathname.includes("sell") && <Header />}

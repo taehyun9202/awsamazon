@@ -20,7 +20,6 @@ const Modals = () => {
         <Menu
           open={modalOpen.menu}
           setOpen={() => {
-            dispatch(clearEmail());
             dispatch(setModalOpen("menu", false));
           }}
         />
@@ -35,7 +34,6 @@ const Modals = () => {
         <Cart
           open={modalOpen.cart}
           setOpen={() => {
-            dispatch(clearEmail());
             dispatch(setModalOpen("cart", false));
           }}
         />
