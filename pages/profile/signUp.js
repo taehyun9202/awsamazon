@@ -2,22 +2,24 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Auth } from "aws-amplify";
 import { useRouter } from "next/router";
+import { setEmail, setUsername } from "../../store/actions/profileAction";
+import { useDispatch } from "react-redux";
 
 const initialState = {
   username: "",
   email: "",
   password: "",
   confirmPW: "",
-  authCode: "",
 };
 
 const SignUp = () => {
   const [formState, setFormState] = useState(initialState);
   const [error, setError] = useState(initialState);
-  const { username, email, password, authCode } = formState;
+  const { username, email, password } = formState;
   const [showPW, setShowPW] = useState(false);
   const [showConfirmPW, setShowConfirmPW] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const onChangeHandler = (e) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -38,10 +40,10 @@ const SignUp = () => {
       });
       return;
     }
-    if (formState.password.length < 6) {
+    if (formState.password.length < 8) {
       setError({
         ...initialState,
-        password: "Password must be at least 6 characters",
+        password: "Password must be at least 8 characters",
       });
       return;
     }
@@ -58,9 +60,11 @@ const SignUp = () => {
         password,
         attributes: { email },
       });
-      router.push("/profile/signIn");
+      dispatch(setEmail(email));
+      dispatch(setUsername(username));
+      router.push("/profile/verify");
     } catch (err) {
-      // console.log(err, JSON.stringify(err, null, 2), err.name);
+      console.log(err, JSON.stringify(err, null, 2));
       if (err.name === "UsernameExistsException") {
         setError({
           ...initialState,
@@ -79,7 +83,9 @@ const SignUp = () => {
           <input
             onChange={onChangeHandler}
             name="username"
-            className="px-2 w-full mt-0.5 border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400"
+            className={`px-2 w-full mt-0.5 border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400 ${
+              error.username && "ring-2 ring-red-600"
+            }`}
             type="text"
           />
           {error.username && (
@@ -94,7 +100,9 @@ const SignUp = () => {
           <input
             onChange={(e) => onChangeHandler(e)}
             name="email"
-            className="px-2 w-full mt-0.5 border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400"
+            className={`px-2 w-full mt-0.5 border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400 ${
+              error.email && "ring-2 ring-red-600"
+            }`}
             type="email"
           />
           {error.email && (
@@ -108,10 +116,12 @@ const SignUp = () => {
         <div className="w-full relative">
           <input
             onChange={(e) => onChangeHandler(e)}
-            className="pl-2 pr-10 mt-0.5 w-full border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400"
+            className={`pl-2 pr-10 mt-0.5 w-full border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400 ${
+              error.password && "ring-2 ring-red-600"
+            }`}
             type={showPW ? "text" : "password"}
             name="password"
-            placeholder="At least 6 characters"
+            placeholder="At least 8 characters"
           />
           {showPW ? (
             <svg
@@ -163,7 +173,9 @@ const SignUp = () => {
         <div className="w-full relative">
           <input
             onChange={(e) => onChangeHandler(e)}
-            className="pl-2 pr-10 mt-0.5 w-full border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400"
+            className={`pl-2 pr-10 mt-0.5 w-full border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400 ${
+              error.confirmPW && "ring-2 ring-red-600"
+            }`}
             type={showConfirmPW ? "text" : "password"}
             name="confirmPW"
           />

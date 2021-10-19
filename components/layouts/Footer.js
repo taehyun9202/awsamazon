@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Modals from "./Modals";
+import Auth from "@aws-amplify/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfile } from "../../store/actions/profileAction";
 
 const Footer = () => {
+  const cognito = useSelector((state) => state.profile.cognito);
+  const dispatch = useDispatch();
+
+  const checkUser = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      dispatch(getProfile(user));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (!cognito.email) {
+      console.log("getting user");
+      checkUser();
+    }
+  }, [cognito]);
+
   return (
     <div className="bg-header">
       <div className="max-w-3xl mx-auto flex justify-between items-start text-gray-400 pt-10 pb-16 px-2 sm:px-4">

@@ -45,7 +45,7 @@ const Header = () => {
             {profile.token ? (
               <div>
                 <p className="text-xs text-gray-400 font-semibold">
-                  Deliver to Username
+                  Deliver to {profile.username}
                 </p>
                 <p className="text-sm font-bold">Alexandria, 22312</p>
               </div>
@@ -68,8 +68,8 @@ const Header = () => {
                   profile.token ? null : router.push("/profile/signIn");
                 }}
               >
-                <p className="text-xs font-semibold">
-                  Hello, {profile.token ? "Username" : "Sign in"}
+                <p className="text-xs font-semibold line-clamp-1">
+                  Hello, {profile.token ? profile.username : "Sign in"}
                 </p>
                 <p className="text-sm font-bold">Account & Lists</p>
               </div>

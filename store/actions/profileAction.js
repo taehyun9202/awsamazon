@@ -1,12 +1,36 @@
-import { CLEAR_SEARCH, GET_USER, LOG_OUT } from "../types";
+import { GET_USER, LOG_OUT, SET_EMAIL, SET_USERNAME } from "../types";
 
-export const getProfile = (user, token) => async (dispatch) => {
-  const profile = user;
-
-  console.log(profile);
+export const getProfile = (user) => async (dispatch) => {
+  console.log(user, token);
+  const cognito = { ...user.attributes, username: user.username };
+  const token = user.signInUserSession.accessToken.jwtToken;
   dispatch({
     type: GET_USER,
-    payload: { profile, token },
+    payload: { cognito, token },
+  });
+
+  dispatch({
+    type: SET_USERNAME,
+    payload: cognito.username,
+  });
+
+  dispatch({
+    type: SET_EMAIL,
+    payload: cognito.email,
+  });
+};
+
+export const setEmail = (email) => async (dispatch) => {
+  dispatch({
+    type: SET_EMAIL,
+    payload: email,
+  });
+};
+
+export const setUsername = (username) => async (dispatch) => {
+  dispatch({
+    type: SET_USERNAME,
+    payload: username,
   });
 };
 
@@ -16,13 +40,5 @@ export const logOut = () => async (dispatch) => {
   dispatch({
     type: LOG_OUT,
     payload: { profile, token },
-  });
-};
-
-export const clearSearch = () => async (dispatch) => {
-  const search = { type: "", input: "" };
-  dispatch({
-    type: CLEAR_SEARCH,
-    payload: { search },
   });
 };
