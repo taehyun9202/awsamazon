@@ -1,7 +1,6 @@
 import { GET_USER, LOG_OUT, SET_EMAIL, SET_USERNAME } from "../types";
 
 export const getProfile = (user) => async (dispatch) => {
-  console.log(user, token);
   const cognito = { ...user.attributes, username: user.username };
   const token = user.signInUserSession.accessToken.jwtToken;
   dispatch({

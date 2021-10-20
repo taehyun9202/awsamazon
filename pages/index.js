@@ -7,7 +7,6 @@ import ProductGrid from "../components/Products/ProductGrid";
 export default function Home() {
   const profile = useSelector((state) => state.profile);
 
-  console.log(profile);
   return (
     <div className="min-h-screen">
       <Head>

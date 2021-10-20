@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Modals from "./Modals";
-import Auth from "@aws-amplify/auth";
+import { Auth, API } from "aws-amplify";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../store/actions/profileAction";
+import { getProducts } from "../../store/actions/productAction";
 
 const Footer = () => {
   const cognito = useSelector((state) => state.profile.cognito);
+  const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
 
   const checkUser = async () => {
@@ -26,13 +28,75 @@ const Footer = () => {
     }
   }, [cognito]);
 
+  useEffect(() => {
+    if (products.length < 1) {
+      console.log("fetching prodcuts");
+      dispatch(getProducts());
+    }
+  }, []);
+
+  const addProduct = async () => {
+    const data = {
+      body: {
+        id: "001",
+        title: "phone",
+        price: "149.99",
+        description: "brand new",
+      },
+    };
+    try {
+      API.post("amzproductapi", "/product", data)
+        .then((res) => {
+          console.log(res);
+          dispatch(getProducts());
+        })
+        .catch((err) => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateProduct = async () => {
+    const data = {
+      body: {
+        id: "001",
+        title: "phone",
+        price: "899.99",
+        description: "brand new",
+        image:
+          "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6441/6441105_sd.jpg",
+      },
+    };
+
+    try {
+      API.post("amzproductapi", "/product", data)
+        .then((res) => {
+          console.log(res);
+          dispatch(getProducts());
+        })
+        .catch((err) => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="bg-header">
       <div className="max-w-3xl mx-auto flex justify-between items-start text-gray-400 pt-10 pb-16 px-2 sm:px-4">
         <div className="flex flex-col gap-2 px-2">
           <p className="font-semibold text-sm text-white">Get to Know Us</p>
-          <p className="text-xs hover:underline cursor-pointer">Careers</p>
-          <p className="text-xs hover:underline cursor-pointer">Blog</p>
+          <p
+            onClick={() => addProduct()}
+            className="text-xs hover:underline cursor-pointer"
+          >
+            Careers
+          </p>
+          <p
+            onClick={() => updateProduct()}
+            className="text-xs hover:underline cursor-pointer"
+          >
+            Blog
+          </p>
           <p className="text-xs hover:underline cursor-pointer">About Amazon</p>
           <p className="text-xs hover:underline cursor-pointer">
             Sustainablity

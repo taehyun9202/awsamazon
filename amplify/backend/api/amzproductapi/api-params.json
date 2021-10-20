@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/product",
+      "lambdaFunction": "amzproductlambda",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/product"
+    }
+  ],
+  "resourceName": "amzproductapi",
+  "apiName": "amzproductapi",
+  "functionArns": [
+    {
+      "lambdaFunction": "amzproductlambda"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-awsamz-dev-171140-authRole",
+    "unAuthRoleName": "amplify-awsamz-dev-171140-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "amzproductlambda",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

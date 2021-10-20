@@ -4,3 +4,4 @@ export const SET_USERNAME = "SET_USERNAME";
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
 export const GET_USER = "GET_USER";
+export const GET_PRODCUTS = "GET_PRODCUTS";
