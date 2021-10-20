@@ -58,9 +58,30 @@ app.get("/product", async function (req, res) {
   });
 });
 
-app.get("/product/*", function (req, res) {
+app.get("/product/:id", function (req, res) {
   // Add your code here
-  res.json({ success: "get call succeed!", url: req.url });
+  // res.json({
+  //   success: "get call for id succeed!",
+  //   url: req.url,
+  //   params: req.params.id,
+  // });
+
+  const params = {
+    TableName: "amzproduct-dev",
+    Key: {
+      id: req.params.id,
+    },
+  };
+
+  docClient.get(params, function (err, data) {
+    if (err) res.json({ err });
+    else
+      res.json({
+        success: "get call for id succeed!",
+        url: req.url,
+        body: data.Item,
+      });
+  });
 });
 
 /****************************

@@ -33,15 +33,23 @@ const Footer = () => {
       console.log("fetching prodcuts");
       dispatch(getProducts());
     }
+    fetchOne();
   }, []);
 
+  const fetchOne = async () => {
+    const res = await API.get("amzproductapi", "/product/001", {});
+    console.log("single p:", res);
+  };
   const addProduct = async () => {
     const data = {
       body: {
-        id: "001",
-        title: "phone",
-        price: "149.99",
-        description: "brand new",
+        id: "003",
+        title: "Samsung Galaxy Z Flip 3",
+        price: ["849.99", "999.99"],
+        description:
+          "Samsung Galaxy Z Flip 3 5G Factory Unlocked Android Cell Phone US Version Smartphone Flex Mode Intuitive Camera Compact 128GB Storage US Warranty, Phantom Black",
+        image:
+          "https://m.media-amazon.com/images/I/71xGSQHfVbL._AC_SL1500_.jpg",
       },
     };
     try {
@@ -60,11 +68,12 @@ const Footer = () => {
     const data = {
       body: {
         id: "001",
-        title: "phone",
-        price: "899.99",
-        description: "brand new",
+        title: "Samsung Galaxy Note 20 ",
+        price: ["990.99", "1190.99"],
+        description:
+          "Samsung Galaxy Note 20 Ultra 5G Factory Unlocked Android Cell Phone 128GB US Version Mobile Gaming Smartphone Long-Lasting Battery, Mystic Bronze",
         image:
-          "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6441/6441105_sd.jpg",
+          "https://m.media-amazon.com/images/I/81AT+Flc+EL._AC_SL1500_.jpg",
       },
     };
 
