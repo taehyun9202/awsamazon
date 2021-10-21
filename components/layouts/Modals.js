@@ -5,6 +5,7 @@ import Menu from "./Menu";
 import { setModalOpen } from "../../store/actions/utilAction";
 import RightSidebarWrapper from "../wrapper/RightSidebarWrapper";
 import LeftSidebarWrapper from "../wrapper/LeftSidebarWrapper";
+import NotificationWrapper from "../wrapper/NotificationWrapper";
 
 const Modals = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,13 @@ const Modals = () => {
           }}
         />
       </RightSidebarWrapper>
+
+      <NotificationWrapper
+        open={modalOpen.notification}
+        setOpen={() => {
+          dispatch(setModalOpen("notification", false));
+        }}
+      />
     </div>
   );
 };

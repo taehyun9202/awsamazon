@@ -4,7 +4,6 @@ import { GET_PRODCUTS } from "../types";
 export const getProducts = () => async (dispatch) => {
   try {
     const res = await API.get("amzproductapi", "/product", {});
-    console.log("products:", res.body);
 
     dispatch({
       type: GET_PRODCUTS,
@@ -14,3 +13,33 @@ export const getProducts = () => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const getProductPriceRange = (product) =>
+  product.priceRange
+    ? `$${product.priceRange[0]} - $${product.priceRange[1]}`
+    : `$${product.price}`;
+
+export const calculateDiscount = (product) =>
+  product.priceRange
+    ? `$${(
+        parseInt(product.priceRange[0]) *
+        (product.discount && (100 - product.discount) / 100)
+      ).toFixed(2)} - $${(
+        parseInt(product.priceRange[1]) *
+        (product.discount && (100 - product.discount) / 100)
+      ).toFixed(2)}`
+    : `$${(
+        parseInt(product.price) *
+        (product.discount && (100 - product.discount) / 100)
+      ).toFixed(2)}`;
+
+export const getProductImage = (product) =>
+  product.image
+    ? product.image[0]
+    : product.variation.color[Object.keys(product.variation.color)[0]].image[0];
+
+export const getProductDescription = (product) =>
+  product.description
+    ? product.description
+    : product.variation.color[Object.keys(product.variation.color)[0]]
+        .description;

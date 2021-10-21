@@ -16,7 +16,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           <div
             onClick={() => router.push("/")}
-            className="relative h-10 w-28 flex-shrink-0 object-fit cursor-pointer ring-0 ring-white border-8 border-transparent  rounded-sm hover:ring-1"
+            className="relative h-10 w-24 flex-shrink-0 object-fit cursor-pointer ring-0 ring-white border-8 border-transparent  rounded-sm hover:ring-1"
           >
             <Image className="my-1" src="/logo.png" layout="fill" alt="logo" />
           </div>

@@ -1,11 +1,35 @@
 import { API } from "aws-amplify";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { putNotification, setModalOpen } from "../../store/actions/utilAction";
+import {
+  getProductDescription,
+  getProductImage,
+  getProductPriceRange,
+} from "../../store/actions/productAction";
 
 const Product = ({ product }) => {
   const profile = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  const [selectedVariation, setSelectedVariation] = useState(null);
+  const [selectedImages, setSelectedImages] = useState(
+    product.image
+      ? product.image
+      : product.variation.color[Object.keys(product.variation.color)[0]].image
+  );
+  const [selectedImage, setSelectedImage] = useState(getProductImage(product));
+
+  console.log(selectedVariation);
+
+  useEffect(() => {
+    if (selectedVariation && selectedVariation.color) {
+      setSelectedImages(product.variation.color[selectedVariation.color].image);
+      setSelectedImage(selectedImages[0]);
+    }
+  }, [selectedVariation, selectedImages]);
+
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-10 gap-8 min-h-screen py-10 px-2 sm:px-4">
       <Head>
@@ -14,8 +38,25 @@ const Product = ({ product }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="relative col-span-10 lg:col-span-5 w-96 h-96 mx-auto">
-        <Image src={product.image} layout="fill" alt={product.title} />
+      <div className="flex col-span-10 lg:col-span-5">
+        <div className="flex flex-col gap-2">
+          {selectedImages.map((image, index) => (
+            <div
+              key={product.title + "image" + index}
+              onClick={() => setSelectedImage(image)}
+              className="relative w-10 h-10 cursor-pointer border"
+            >
+              <Image
+                src={image}
+                layout="fill"
+                alt={product.title + "image" + index}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="relative w-40 h-40 sm:w-96 sm:h-96 mx-auto">
+          <Image src={selectedImage} layout="fill" alt={product.title} />
+        </div>
       </div>
       <div className="col-span-10 md:col-span-6 lg:col-span-3">
         <div className="border-b pb-2">
@@ -25,9 +66,7 @@ const Product = ({ product }) => {
         <div className="text-sm font-medium leading-5">
           <p className="py-2">
             Price:{" "}
-            <span className="text-base text-red-600">
-              ${product.price[0]} - ${product.price[1]}
-            </span>
+            <span className="text-base text-red-600">${product.price}</span>
           </p>
           <p>
             <span className="text-blue-700 font-semibold cursor-pointer hover:text-blue-400">
@@ -40,7 +79,51 @@ const Product = ({ product }) => {
             May be available at a lower price from other sellers, potentially
             without free Prime shippin
           </p>
-          <p className="px-2 py-6">{product.description}</p>
+          <p className="px-2 py-6">
+            {selectedVariation
+              ? product.variation.color[selectedVariation.color].description
+              : getProductDescription(product)}
+          </p>
+
+          <div>
+            {product.variation &&
+              Object.keys(product.variation).map((variation, index) => (
+                <div key={product.title + variation}>
+                  <p className="px-1.5 font-medium text-gray-500">
+                    {variation}:{" "}
+                    <span className="font-bold text-black">
+                      {selectedVariation && selectedVariation[variation]}
+                    </span>
+                  </p>
+                  <div className="flex-grow w-full h-full">
+                    {Object.keys(product.variation[variation]).map((choice) => (
+                      <div
+                        key={product.title + variation + choice}
+                        onClick={() => {
+                          setSelectedVariation({
+                            ...selectedVariation,
+                            [variation]: choice,
+                          });
+                          console.log(variation === "color");
+                        }}
+                        className="inline-block mx-1.5 my-1.5"
+                      >
+                        <p
+                          className={`border max-w-max w-full px-2 py-1 cursor-pointer hover:border-yellow-400 hover:bg-gray-100 hover:shadow-lg
+                          ${
+                            selectedVariation &&
+                            selectedVariation[variation] === choice &&
+                            "border-yellow-400 bg-gray-100 shadow-lg"
+                          }`}
+                        >
+                          {choice}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+          </div>
 
           <p className="text-gray-400 mt-6">Compare with similar items</p>
         </div>
@@ -50,7 +133,7 @@ const Product = ({ product }) => {
           <div className="p-4">
             <div className="flex justify-between items-center">
               <p className="font-bold">Buy new:</p>
-              <p className="text-red-500">${product.price[1]}</p>
+              <p className="text-red-500">{getProductPriceRange(product)}</p>
             </div>
             <p className="py-2">Prime & FREE Returns</p>
             <p>
@@ -90,7 +173,20 @@ const Product = ({ product }) => {
               <option>Qty: 5</option>
             </select>
 
-            <p className="text font-normal text-sm max-w-xs mx-auto w-full bg-yellow-300 py-1.5 text-center rounded-full hover:shadow-md my-2">
+            <p
+              onClick={() => {
+                dispatch(
+                  putNotification(
+                    "Notification",
+                    null,
+                    "Product added to cart",
+                    product
+                  )
+                );
+                dispatch(setModalOpen("notification", true));
+              }}
+              className="text font-normal text-sm max-w-xs mx-auto w-full bg-yellow-300 py-1.5 text-center rounded-full hover:shadow-md my-2"
+            >
               Add to Cart
             </p>
             <p className="text font-normal text-sm max-w-xs mx-auto w-full bg-yellow-500 py-1.5 text-center rounded-full hover:shadow-md my-2">

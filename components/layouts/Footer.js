@@ -38,18 +38,67 @@ const Footer = () => {
 
   const fetchOne = async () => {
     const res = await API.get("amzproductapi", "/product/001", {});
-    console.log("single p:", res);
   };
   const addProduct = async () => {
     const data = {
       body: {
-        id: "003",
-        title: "Samsung Galaxy Z Flip 3",
-        price: ["849.99", "999.99"],
-        description:
-          "Samsung Galaxy Z Flip 3 5G Factory Unlocked Android Cell Phone US Version Smartphone Flex Mode Intuitive Camera Compact 128GB Storage US Warranty, Phantom Black",
-        image:
-          "https://m.media-amazon.com/images/I/71xGSQHfVbL._AC_SL1500_.jpg",
+        id: "004",
+        title: "Samsung Galaxy Watch 4 ",
+        price: "329.99",
+        priceRange: ["329.99", "449.99"],
+        description: "",
+        image: "",
+        discount: 10,
+        variation: {
+          color: {
+            silver: {
+              extra: "40",
+              image: [
+                "https://m.media-amazon.com/images/I/71yNmp4OnXS._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/71xd-u2cG4S._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/61v7awnQrKL._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/51S2e043r8L._AC_SL1500_.jpg",
+              ],
+              description:
+                "Samsung Galaxy Watch 4 Classic 46mm Smartwatch with ECG Monitor Tracker for Health Fitness Running Sleep Cycles GPS Fall Detection Bluetooth US Version, Silver",
+              quantity: 30,
+            },
+            black: {
+              extra: "50",
+              image: [
+                "https://m.media-amazon.com/images/I/61yY7B+O5AS._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/71+GEsWLIzS._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/61THl45b6XL._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/51Sal1AeD9L._AC_SL1500_.jpg",
+              ],
+              description:
+                "Samsung Galaxy Watch 4 Classic 46mm Smartwatch Bluetooth, Silver (US Version) with Samsung Wireless Charger Fast Charge Pad Duo (2021), Black",
+              quantity: 28,
+            },
+          },
+          size: {
+            "42 mm": {
+              extra: "0",
+            },
+            "46 mm": {
+              extra: "30",
+            },
+          },
+          style: {
+            Bluetooth: {
+              extra: "0",
+            },
+            "Bluetooth with Wireless Charger": {
+              extra: "60",
+            },
+            LTE: {
+              extra: "50",
+            },
+            "LTE with Wireless Charger": {
+              extra: "120",
+            },
+          },
+        },
       },
     };
     try {
@@ -69,11 +118,12 @@ const Footer = () => {
       body: {
         id: "001",
         title: "Samsung Galaxy Note 20 ",
-        price: ["990.99", "1190.99"],
+        price: "899.99",
         description:
           "Samsung Galaxy Note 20 Ultra 5G Factory Unlocked Android Cell Phone 128GB US Version Mobile Gaming Smartphone Long-Lasting Battery, Mystic Bronze",
-        image:
+        image: [
           "https://m.media-amazon.com/images/I/81AT+Flc+EL._AC_SL1500_.jpg",
+        ],
       },
     };
 

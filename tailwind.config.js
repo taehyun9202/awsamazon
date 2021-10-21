@@ -26,6 +26,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      fontWeight: ["hover"],
       ringWidth: ["hover", "active"],
       ringColor: ["hover", "active"],
     },
