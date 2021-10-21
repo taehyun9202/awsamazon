@@ -20,15 +20,35 @@ const Product = ({ product }) => {
       : product.variation.color[Object.keys(product.variation.color)[0]].image
   );
   const [selectedImage, setSelectedImage] = useState(getProductImage(product));
-
-  console.log(selectedVariation);
+  const [total, setTotal] = useState(parseFloat(product.price));
 
   useEffect(() => {
     if (selectedVariation && selectedVariation.color) {
       setSelectedImages(product.variation.color[selectedVariation.color].image);
       setSelectedImage(selectedImages[0]);
     }
-  }, [selectedVariation, selectedImages]);
+
+    const extras = [parseFloat(product.price)];
+    selectedVariation &&
+      Object.keys(selectedVariation).map((variable) => {
+        variable !== "image" &&
+          extras.push(
+            parseFloat(
+              Object(
+                Object(product.variation[variable])[selectedVariation[variable]]
+              ).extra
+            )
+          );
+      });
+    extras.length > 0 && setTotal(extras.reduce((sum, x) => sum + x));
+  }, [selectedVariation]);
+
+  useEffect(() => {
+    setSelectedVariation({
+      ...selectedVariation,
+      image: selectedImage,
+    });
+  }, [selectedImages]);
 
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-10 gap-8 min-h-screen py-10 px-2 sm:px-4">
@@ -65,8 +85,7 @@ const Product = ({ product }) => {
         </div>
         <div className="text-sm font-medium leading-5">
           <p className="py-2">
-            Price:{" "}
-            <span className="text-base text-red-600">${product.price}</span>
+            Price: <span className="text-base text-red-600">${total}</span>
           </p>
           <p>
             <span className="text-blue-700 font-semibold cursor-pointer hover:text-blue-400">
@@ -80,7 +99,7 @@ const Product = ({ product }) => {
             without free Prime shippin
           </p>
           <p className="px-2 py-6">
-            {selectedVariation
+            {selectedVariation && selectedVariation.description
               ? product.variation.color[selectedVariation.color].description
               : getProductDescription(product)}
           </p>
@@ -104,7 +123,6 @@ const Product = ({ product }) => {
                             ...selectedVariation,
                             [variation]: choice,
                           });
-                          console.log(variation === "color");
                         }}
                         className="inline-block mx-1.5 my-1.5"
                       >
@@ -133,7 +151,7 @@ const Product = ({ product }) => {
           <div className="p-4">
             <div className="flex justify-between items-center">
               <p className="font-bold">Buy new:</p>
-              <p className="text-red-500">{getProductPriceRange(product)}</p>
+              <p className="text-red-500">${total}</p>
             </div>
             <p className="py-2">Prime & FREE Returns</p>
             <p>
@@ -165,31 +183,61 @@ const Product = ({ product }) => {
               Deliver to {profile.username} - Alexandria, 22312
             </p>
             <p className="text-red-500 text-lg">In Stock</p>
-            <select className="text-xs bg-gray-200 rounded-lg h-7 w-16 px-0.5 py-1 my-2">
-              <option>Qty: 1</option>
-              <option>Qty: 2</option>
-              <option>Qty: 3</option>
-              <option>Qty: 4</option>
-              <option>Qty: 5</option>
+            <select
+              onChange={(e) =>
+                setSelectedVariation({
+                  ...selectedVariation,
+                  quantity: e.target.value,
+                })
+              }
+              className="text-xs bg-gray-200 rounded-lg h-7 w-16 px-0.5 py-1 my-2"
+            >
+              <option value={1}>Qty: 1</option>
+              <option value={2}>Qty: 2</option>
+              <option value={3}>Qty: 3</option>
+              <option value={4}>Qty: 4</option>
+              <option value={5}>Qty: 5</option>
             </select>
 
             <p
               onClick={() => {
-                dispatch(
-                  putNotification(
-                    "Notification",
-                    null,
-                    "Product added to cart",
-                    product
-                  )
-                );
+                product.variation
+                  ? !selectedVariation.color
+                    ? dispatch(
+                        putNotification(
+                          "Warning",
+                          null,
+                          "Please select product variation(s)",
+                          null
+                        )
+                      )
+                    : dispatch(
+                        putNotification(
+                          "Notification",
+                          null,
+                          "Product added to cart",
+                          {
+                            ...product,
+                            selectedVariation,
+                            purchasedPrice: total,
+                          }
+                        )
+                      )
+                  : dispatch(
+                      putNotification(
+                        "Notification",
+                        null,
+                        "Product added to cart",
+                        { ...product, selectedVariation, purchasedPrice: total }
+                      )
+                    );
                 dispatch(setModalOpen("notification", true));
               }}
-              className="text font-normal text-sm max-w-xs mx-auto w-full bg-yellow-300 py-1.5 text-center rounded-full hover:shadow-md my-2"
+              className="text font-normal text-sm max-w-xs mx-auto w-full bg-yellow-300 py-1.5 text-center rounded-full hover:shadow-md my-2 cursor-pointer"
             >
               Add to Cart
             </p>
-            <p className="text font-normal text-sm max-w-xs mx-auto w-full bg-yellow-500 py-1.5 text-center rounded-full hover:shadow-md my-2">
+            <p className="text font-normal text-sm max-w-xs mx-auto w-full bg-yellow-500 py-1.5 text-center rounded-full hover:shadow-md my-2 cursor-pointer">
               Buy Now
             </p>
 

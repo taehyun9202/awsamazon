@@ -1,10 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearNotification } from "../../store/actions/utilAction";
-
-const NotificationWrapper = ({ open, setOpen, title, message }) => {
+import Image from "next/image";
+const NotificationWrapper = ({ open, setOpen }) => {
   const dispatch = useDispatch();
+  const notification = useSelector((state) => state.util.notification);
+  const { type, message, icon, product } = notification;
   const [seconds, setSeconds] = useState(3);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const NotificationWrapper = ({ open, setOpen, title, message }) => {
   });
 
   const color = () => {
-    switch (title) {
+    switch (type) {
       case "Notification":
         return "border-green-500 text-green-500";
       case "Warning":
@@ -37,7 +39,7 @@ const NotificationWrapper = ({ open, setOpen, title, message }) => {
     <>
       <div
         aria-live="assertive"
-        className="w-full px-4 sm:w-96 fixed top-16 right-1/2 transform translate-x-1/2 max-w-7xl sm:translate-x-0 sm:top-16 sm:right-10 z-20 flex items-center justify-center"
+        className="w-full px-4 max-w-md fixed top-16 right-1/2 transform translate-x-1/2 sm:translate-x-0 sm:top-16 sm:right-10 z-20 flex items-center justify-center"
       >
         <Transition
           show={open}
@@ -50,16 +52,40 @@ const NotificationWrapper = ({ open, setOpen, title, message }) => {
           leaveTo="opacity-0"
         >
           <div
-            className={`flex justify-between items-center gap-2 p-2 w-full bg-white shadow-2xl h-14 rounded-lg border-2 overflow-hidden ${color()}`}
+            className={`flex justify-between items-start gap-4 p-2 w-full bg-white shadow-2xl rounded-lg border-2 overflow-hidden ${color()}`}
           >
+            {product && (
+              <div className="relative my-auto w-20 h-20 flex-shrink-0">
+                <Image
+                  src={product.selectedVariation.image}
+                  layout="fill"
+                  alt={product.title}
+                />
+              </div>
+            )}
             <div className="flex flex-1 flex-col ">
               <div className="flex justify-between items-center">
-                <p className="text-sm">{title}</p>
+                <p className="text-sm">{type}</p>
                 <p className="text-xs text-dark">
                   disappear in {seconds} sec...
                 </p>
               </div>
-              <p className="text-sm text-dark">{message}</p>
+              <p className="font-semibold text-dark">{message}</p>
+              {product &&
+                Object.keys(product.selectedVariation).map(
+                  (variation, index) => (
+                    <div key={product.title + "variation" + index}>
+                      {variation !== "image" && (
+                        <p className="text-xs capitalize">
+                          {variation}:{" "}
+                          <span className="font-semibold">
+                            {product.selectedVariation[variation]}
+                          </span>
+                        </p>
+                      )}
+                    </div>
+                  )
+                )}
             </div>
             <div className="flex items-center justify-center">
               <svg

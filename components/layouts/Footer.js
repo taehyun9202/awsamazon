@@ -52,7 +52,6 @@ const Footer = () => {
         variation: {
           color: {
             silver: {
-              extra: "40",
               image: [
                 "https://m.media-amazon.com/images/I/71yNmp4OnXS._AC_SL1500_.jpg",
                 "https://m.media-amazon.com/images/I/71xd-u2cG4S._AC_SL1500_.jpg",
@@ -64,7 +63,6 @@ const Footer = () => {
               quantity: 30,
             },
             black: {
-              extra: "50",
               image: [
                 "https://m.media-amazon.com/images/I/61yY7B+O5AS._AC_SL1500_.jpg",
                 "https://m.media-amazon.com/images/I/71+GEsWLIzS._AC_SL1500_.jpg",

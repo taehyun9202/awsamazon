@@ -22,14 +22,14 @@ export const getProductPriceRange = (product) =>
 export const calculateDiscount = (product) =>
   product.priceRange
     ? `$${(
-        parseInt(product.priceRange[0]) *
+        parseFloat(product.priceRange[0]) *
         (product.discount && (100 - product.discount) / 100)
       ).toFixed(2)} - $${(
-        parseInt(product.priceRange[1]) *
+        parseFloat(product.priceRange[1]) *
         (product.discount && (100 - product.discount) / 100)
       ).toFixed(2)}`
     : `$${(
-        parseInt(product.price) *
+        parseFloat(product.price) *
         (product.discount && (100 - product.discount) / 100)
       ).toFixed(2)}`;
 
