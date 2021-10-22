@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Cart from "../products/Cart";
+// import Cart from "../products/Cart";
 import Menu from "./Menu";
 import { setModalOpen } from "../../store/actions/utilAction";
-import RightSidebarWrapper from "../wrapper/RightSidebarWrapper";
+// import RightSidebarWrapper from "../wrapper/RightSidebarWrapper";
 import LeftSidebarWrapper from "../wrapper/LeftSidebarWrapper";
 import NotificationWrapper from "../wrapper/NotificationWrapper";
 
@@ -26,7 +26,7 @@ const Modals = () => {
         />
       </LeftSidebarWrapper>
 
-      <RightSidebarWrapper
+      {/* <RightSidebarWrapper
         open={modalOpen.cart}
         setOpen={() => {
           dispatch(setModalOpen("cart", false));
@@ -38,7 +38,7 @@ const Modals = () => {
             dispatch(setModalOpen("cart", false));
           }}
         />
-      </RightSidebarWrapper>
+      </RightSidebarWrapper> */}
 
       <NotificationWrapper
         open={modalOpen.notification}
