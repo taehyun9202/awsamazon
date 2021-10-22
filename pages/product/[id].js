@@ -13,19 +13,19 @@ import {
 const Product = ({ product }) => {
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
-  const [selectedVariation, setSelectedVariation] = useState(null);
+  const [selectedVariation, setSelectedVariation] = useState({});
   const [selectedImages, setSelectedImages] = useState(
     product.image
       ? product.image
       : product.variation.color[Object.keys(product.variation.color)[0]].image
   );
   const [selectedImage, setSelectedImage] = useState(getProductImage(product));
-  const [total, setTotal] = useState(parseFloat(product.price));
+  const [selectedPrice, setSelectedPrice] = useState(parseFloat(product.price));
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    if (selectedVariation && selectedVariation.color) {
+    if (selectedVariation.color) {
       setSelectedImages(product.variation.color[selectedVariation.color].image);
-      setSelectedImage(selectedImages[0]);
     }
 
     const extras = [parseFloat(product.price)];
@@ -40,15 +40,53 @@ const Product = ({ product }) => {
             )
           );
       });
-    extras.length > 0 && setTotal(extras.reduce((sum, x) => sum + x));
+    extras.length > 0 && setSelectedPrice(extras.reduce((sum, x) => sum + x));
   }, [selectedVariation]);
 
   useEffect(() => {
-    setSelectedVariation({
-      ...selectedVariation,
-      image: selectedImage,
-    });
+    setSelectedImage(selectedImages[0]);
   }, [selectedImages]);
+
+  const onSubmitHandler = () => {
+    const purchaseData = {
+      product,
+      selectedVariation,
+      image: selectedImage,
+      purchasedPrice: selectedPrice * quantity,
+      selectedPrice: selectedPrice,
+      buyerEmail: profile.email,
+      buyer: profile.username,
+      quantity: parseInt(quantity),
+    };
+
+    product.variation
+      ? !selectedVariation.color
+        ? dispatch(
+            putNotification(
+              "Warning",
+              null,
+              "Please select product variation(s)",
+              null
+            )
+          )
+        : dispatch(
+            putNotification(
+              "Notification",
+              null,
+              "Product added to cart",
+              purchaseData
+            )
+          )
+      : dispatch(
+          putNotification(
+            "Notification",
+            null,
+            "Product added to cart",
+            purchaseData
+          )
+        );
+    dispatch(setModalOpen("notification", true));
+  };
 
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-10 gap-8 min-h-screen py-10 px-2 sm:px-4">
@@ -85,7 +123,8 @@ const Product = ({ product }) => {
         </div>
         <div className="text-sm font-medium leading-5">
           <p className="py-2">
-            Price: <span className="text-base text-red-600">${total}</span>
+            Price:{" "}
+            <span className="text-base text-red-600">${selectedPrice}</span>
           </p>
           <p>
             <span className="text-blue-700 font-semibold cursor-pointer hover:text-blue-400">
@@ -151,7 +190,7 @@ const Product = ({ product }) => {
           <div className="p-4">
             <div className="flex justify-between items-center">
               <p className="font-bold">Buy new:</p>
-              <p className="text-red-500">${total}</p>
+              <p className="text-red-500">${selectedPrice * quantity}</p>
             </div>
             <p className="py-2">Prime & FREE Returns</p>
             <p>
@@ -184,12 +223,7 @@ const Product = ({ product }) => {
             </p>
             <p className="text-red-500 text-lg">In Stock</p>
             <select
-              onChange={(e) =>
-                setSelectedVariation({
-                  ...selectedVariation,
-                  quantity: e.target.value,
-                })
-              }
+              onChange={(e) => setQuantity(e.target.value)}
               className="text-xs bg-gray-200 rounded-lg h-7 w-16 px-0.5 py-1 my-2"
             >
               <option value={1}>Qty: 1</option>
@@ -200,39 +234,7 @@ const Product = ({ product }) => {
             </select>
 
             <p
-              onClick={() => {
-                product.variation
-                  ? !selectedVariation.color
-                    ? dispatch(
-                        putNotification(
-                          "Warning",
-                          null,
-                          "Please select product variation(s)",
-                          null
-                        )
-                      )
-                    : dispatch(
-                        putNotification(
-                          "Notification",
-                          null,
-                          "Product added to cart",
-                          {
-                            ...product,
-                            selectedVariation,
-                            purchasedPrice: total,
-                          }
-                        )
-                      )
-                  : dispatch(
-                      putNotification(
-                        "Notification",
-                        null,
-                        "Product added to cart",
-                        { ...product, selectedVariation, purchasedPrice: total }
-                      )
-                    );
-                dispatch(setModalOpen("notification", true));
-              }}
+              onClick={() => onSubmitHandler()}
               className="text font-normal text-sm max-w-xs mx-auto w-full bg-yellow-300 py-1.5 text-center rounded-full hover:shadow-md my-2 cursor-pointer"
             >
               Add to Cart

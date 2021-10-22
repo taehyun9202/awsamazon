@@ -56,11 +56,7 @@ const NotificationWrapper = ({ open, setOpen }) => {
           >
             {product && (
               <div className="relative my-auto w-20 h-20 flex-shrink-0">
-                <Image
-                  src={product.selectedVariation.image}
-                  layout="fill"
-                  alt={product.title}
-                />
+                <Image src={product.image} layout="fill" alt={product.title} />
               </div>
             )}
             <div className="flex flex-1 flex-col ">
