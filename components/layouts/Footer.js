@@ -44,9 +44,11 @@ const Footer = () => {
       body: {
         id: "004",
         title: "Samsung Galaxy Watch 4 ",
+        category: ["Samsung", "Electronics", "Watch", "Galaxy"],
         price: "329.99",
         priceRange: ["329.99", "449.99"],
-        description: "",
+        description:
+          "Samsung Galaxy Watch 4 Classic 46mm Smartwatch with ECG Monitor Tracker for Health Fitness Running Sleep Cycles GPS Fall Detection Bluetooth US Version",
         image: "",
         discount: 10,
         variation: {
@@ -58,8 +60,7 @@ const Footer = () => {
                 "https://m.media-amazon.com/images/I/61v7awnQrKL._AC_SL1500_.jpg",
                 "https://m.media-amazon.com/images/I/51S2e043r8L._AC_SL1500_.jpg",
               ],
-              description:
-                "Samsung Galaxy Watch 4 Classic 46mm Smartwatch with ECG Monitor Tracker for Health Fitness Running Sleep Cycles GPS Fall Detection Bluetooth US Version, Silver",
+
               quantity: 30,
             },
             black: {
@@ -69,8 +70,6 @@ const Footer = () => {
                 "https://m.media-amazon.com/images/I/61THl45b6XL._AC_SL1500_.jpg",
                 "https://m.media-amazon.com/images/I/51Sal1AeD9L._AC_SL1500_.jpg",
               ],
-              description:
-                "Samsung Galaxy Watch 4 Classic 46mm Smartwatch Bluetooth, Silver (US Version) with Samsung Wireless Charger Fast Charge Pad Duo (2021), Black",
               quantity: 28,
             },
           },

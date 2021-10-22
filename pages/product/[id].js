@@ -7,7 +7,6 @@ import { putNotification, setModalOpen } from "../../store/actions/utilAction";
 import {
   getProductDescription,
   getProductImage,
-  getProductPriceRange,
 } from "../../store/actions/productAction";
 
 const Product = ({ product }) => {
@@ -31,15 +30,14 @@ const Product = ({ product }) => {
     const extras = [parseFloat(product.price)];
     selectedVariation &&
       Object.keys(selectedVariation).map((variable) => {
-        variable !== "image" &&
-          extras.push(
-            parseFloat(
-              Object(
-                Object(product.variation[variable])[selectedVariation[variable]]
-              ).extra
-            )
-          );
+        const extraCharge = Object(
+          Object(product.variation[variable])[selectedVariation[variable]]
+        ).extra;
+        console.log(extraCharge);
+        extraCharge !== undefined && extras.push(parseFloat(extraCharge));
       });
+
+    console.log(extras);
     extras.length > 0 && setSelectedPrice(extras.reduce((sum, x) => sum + x));
   }, [selectedVariation]);
 
@@ -51,14 +49,15 @@ const Product = ({ product }) => {
     const purchaseData = {
       product,
       selectedVariation,
-      image: selectedImage,
-      purchasedPrice: selectedPrice * quantity,
+      image: selectedImages[0],
+      purchasedPrice: parseFloat((selectedPrice * quantity).toFixed(2)),
       selectedPrice: selectedPrice,
       buyerEmail: profile.email,
       buyer: profile.username,
       quantity: parseInt(quantity),
     };
 
+    console.log(purchaseData);
     product.variation
       ? !selectedVariation.color
         ? dispatch(
@@ -137,11 +136,7 @@ const Product = ({ product }) => {
             May be available at a lower price from other sellers, potentially
             without free Prime shippin
           </p>
-          <p className="px-2 py-6">
-            {selectedVariation && selectedVariation.description
-              ? product.variation.color[selectedVariation.color].description
-              : getProductDescription(product)}
-          </p>
+          <p className="px-2 py-6">{product.description}</p>
 
           <div>
             {product.variation &&

@@ -37,9 +37,3 @@ export const getProductImage = (product) =>
   product.image
     ? product.image[0]
     : product.variation.color[Object.keys(product.variation.color)[0]].image[0];
-
-export const getProductDescription = (product) =>
-  product.description
-    ? product.description
-    : product.variation.color[Object.keys(product.variation.color)[0]]
-        .description;
