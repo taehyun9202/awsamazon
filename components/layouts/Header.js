@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <>
       <div className="bg-header px-2 sm:px-4 text-white gap-2">
-        <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto flex items-center justify-between h-16">
           <div
             onClick={() => router.push("/")}
             className="relative h-10 w-24 flex-shrink-0 object-fit cursor-pointer ring-0 ring-white border-8 border-transparent  rounded-sm hover:ring-1"

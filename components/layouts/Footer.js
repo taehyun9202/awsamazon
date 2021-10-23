@@ -42,57 +42,58 @@ const Footer = () => {
   const addProduct = async () => {
     const data = {
       body: {
-        id: "004",
-        title: "Samsung Galaxy Watch 4 ",
-        category: ["Samsung", "Electronics", "Watch", "Galaxy"],
-        price: "329.99",
-        priceRange: ["329.99", "449.99"],
+        id: "007",
+        title: "2021 Apple iPad Pro",
+        category: ["Apple", "Electronics", "Tablet", "iPad"],
+        price: "1099.00",
+        priceRange: ["1099.00", "2299.00"],
         description:
-          "Samsung Galaxy Watch 4 Classic 46mm Smartwatch with ECG Monitor Tracker for Health Fitness Running Sleep Cycles GPS Fall Detection Bluetooth US Version",
+          "Apple M1 chip for next-level performance. Brilliant 12.9-inch Liquid Retina XDR display with ProMotion, True Tone, and P3 wide color. TrueDepth camera system featuring Ultra Wide camera with Center Stage.",
         image: "",
         discount: 10,
         variation: {
           color: {
-            silver: {
+            Silver: {
               image: [
-                "https://m.media-amazon.com/images/I/71yNmp4OnXS._AC_SL1500_.jpg",
-                "https://m.media-amazon.com/images/I/71xd-u2cG4S._AC_SL1500_.jpg",
-                "https://m.media-amazon.com/images/I/61v7awnQrKL._AC_SL1500_.jpg",
-                "https://m.media-amazon.com/images/I/51S2e043r8L._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/815KnP2wjDS._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/71bwIJGoOhS._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/81xu+s01lrS._AC_SL1500_.jpg",
               ],
 
-              quantity: 30,
+              quantity: 17,
             },
-            black: {
+            "Space Gray": {
               image: [
-                "https://m.media-amazon.com/images/I/61yY7B+O5AS._AC_SL1500_.jpg",
-                "https://m.media-amazon.com/images/I/71+GEsWLIzS._AC_SL1500_.jpg",
-                "https://m.media-amazon.com/images/I/61THl45b6XL._AC_SL1500_.jpg",
-                "https://m.media-amazon.com/images/I/51Sal1AeD9L._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/81+N4PFF7jS._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/71Qltdecc4S._AC_SL1500_.jpg",
+                "https://m.media-amazon.com/images/I/81xu+s01lrS._AC_SL1500_.jpg",
               ],
-              quantity: 28,
+              quantity: 7,
             },
           },
           size: {
-            "42 mm": {
+            "128 GB": {
               extra: "0",
             },
-            "46 mm": {
-              extra: "30",
+            "256 BG": {
+              extra: "100",
+            },
+            "512 BG": {
+              extra: "350",
+            },
+            "1 TB": {
+              extra: "500",
+            },
+            "2 TB": {
+              extra: "1000",
             },
           },
           style: {
-            Bluetooth: {
+            WiFi: {
               extra: "0",
             },
-            "Bluetooth with Wireless Charger": {
-              extra: "60",
-            },
-            LTE: {
-              extra: "50",
-            },
-            "LTE with Wireless Charger": {
-              extra: "120",
+            "WiFi with Cellular": {
+              extra: "250",
             },
           },
         },
@@ -138,7 +139,7 @@ const Footer = () => {
 
   return (
     <div className="bg-header">
-      <div className="max-w-3xl mx-auto flex justify-between items-start text-gray-400 pt-10 pb-16 px-2 sm:px-4">
+      <div className="max-w-6xl mx-auto flex justify-between items-start text-gray-400 pt-10 pb-16 px-2 sm:px-4">
         <div className="flex flex-col gap-2 px-2">
           <p className="font-semibold text-sm text-white">Get to Know Us</p>
           <p

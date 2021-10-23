@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 const HeaderInput = () => {
   const [select, setSelect] = useState("All");
+  const [searchInput, setSearchInput] = useState("");
+
+  const searchHandler = () => {};
   return (
     <div className="relative flex h-9 justify-center rounded-md overflow-hidden group ring-2 ring-transparent focus-within:ring-yellow-500">
       <select
@@ -10,16 +13,21 @@ const HeaderInput = () => {
         value={select}
       >
         <option value="All">All</option>
-        <option value="Sports & Fitness">Sports & Fitness</option>
-        <option value="Shopper ToolKit">Shopper ToolKit</option>
-        <option value="Gift Cards">Gift Cards</option>
+        <option value="Electronics">Electronics</option>
       </select>
 
-      <input className="w-full outline-none" type="text" />
-
+      <form className="w-full" onSubmit={searchHandler}>
+        <input
+          onChange={(e) => setSearchInput(e.target.value)}
+          value={searchInput}
+          className="w-full outline-none h-9"
+          type="text"
+        />
+      </form>
       <div className="absolute text-gray-900 top-0 right-0 bg-yellow-400 h-9 w-9 flex justify-center items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
+          onClick={searchHandler}
           className="h-6 w-6 "
           fill="none"
           viewBox="0 0 24 24"
