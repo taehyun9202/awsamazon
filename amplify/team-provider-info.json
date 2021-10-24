@@ -19,6 +19,10 @@
         "amzproductlambda": {
           "deploymentBucketName": "amplify-awsamz-dev-171140-deployment",
           "s3Key": "amplify-builds/amzproductlambda-7575384c796730574c53-build.zip"
+        },
+        "amzprofilefunction": {
+          "deploymentBucketName": "amplify-awsamz-dev-171140-deployment",
+          "s3Key": "amplify-builds/amzprofilefunction-78617142513059593664-build.zip"
         }
       }
     }

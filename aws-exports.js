@@ -30,12 +30,21 @@ const awsmobile = {
             "name": "amzproductapi",
             "endpoint": "https://ra4r0pf9ji.execute-api.us-east-1.amazonaws.com/dev",
             "region": "us-east-1"
+        },
+        {
+            "name": "amzprofile",
+            "endpoint": "https://psfayh595i.execute-api.us-east-1.amazonaws.com/dev",
+            "region": "us-east-1"
         }
     ],
     "aws_dynamodb_all_tables_region": "us-east-1",
     "aws_dynamodb_table_schemas": [
         {
             "tableName": "amzproduct-dev",
+            "region": "us-east-1"
+        },
+        {
+            "tableName": "amzprofile-dev",
             "region": "us-east-1"
         }
     ]

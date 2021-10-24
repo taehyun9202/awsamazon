@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/profile",
+      "lambdaFunction": "amzprofilefunction",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/profile"
+    }
+  ],
+  "resourceName": "amzprofile",
+  "apiName": "amzprofile",
+  "functionArns": [
+    {
+      "lambdaFunction": "amzprofilefunction"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-awsamz-dev-171140-authRole",
+    "unAuthRoleName": "amplify-awsamz-dev-171140-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "amzprofilefunction",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

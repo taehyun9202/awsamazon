@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getProfile, signIn } from "../../store/actions/profileAction";
-import Auth from "@aws-amplify/auth";
+import { Auth, API } from "aws-amplify";
 import { useDispatch } from "react-redux";
 
 const initialState = {
@@ -42,6 +42,34 @@ const SignIn = () => {
       await Auth.signIn(email, password);
       const user = await Auth.currentAuthenticatedUser();
       dispatch(getProfile(user));
+
+      const id = user.attributes.sub;
+      const username = user.username;
+      const useremail = user.attributes.email;
+
+      console.log(id, username, useremail);
+
+      try {
+        const check = await API.get("amzprofile", `/profile/${id}`);
+
+        console.log(check);
+        if (check.err.statusCode === 400 || check.err === "NotFound") {
+          console.log("First visit user");
+          const newProfile = await API.post("amzprofile", "/profile", {
+            body: {
+              id: id,
+              username: username,
+              useremail: useremail,
+            },
+          });
+          console.log(newProfile);
+        } else {
+          console.log("User already in table");
+        }
+      } catch (err) {
+        console.log("User already in table");
+      }
+
       router.push("/");
     } catch (err) {
       console.log(err, JSON.stringify(err));
@@ -69,9 +97,8 @@ const SignIn = () => {
           <input
             onChange={(e) => onChangeHandler(e)}
             name="email"
-            className={`px-2 w-full mt-0.5 border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400 ${
-              error.email && "ring-2 ring-red-600"
-            }`}
+            className={`px-2 w-full mt-0.5 border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400 ${error.email &&
+              "ring-2 ring-red-600"}`}
             type="email"
           />
           {error.email && (
@@ -85,9 +112,8 @@ const SignIn = () => {
         <div className="w-full relative">
           <input
             onChange={(e) => onChangeHandler(e)}
-            className={`pl-2 pr-10 mt-0.5 w-full border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400 ${
-              error.password && "ring-2 ring-red-600"
-            }`}
+            className={`pl-2 pr-10 mt-0.5 w-full border text-sm rounded h-8 border-gray-600 outline-none focus:ring-2 ring-yellow-400 ${error.password &&
+              "ring-2 ring-red-600"}`}
             type={showPW ? "text" : "password"}
             name="password"
           />

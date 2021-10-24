@@ -39,6 +39,22 @@
           ]
         }
       ]
+    },
+    "amzprofilefunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "amzprofile",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        }
+      ]
     }
   },
   "api": {
@@ -55,10 +71,28 @@
           ]
         }
       ]
+    },
+    "amzprofile": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "amzprofilefunction",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   },
   "storage": {
     "amzproduct": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    },
+    "amzprofile": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }

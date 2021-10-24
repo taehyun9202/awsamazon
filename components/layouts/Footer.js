@@ -137,6 +137,34 @@ const Footer = () => {
     }
   };
 
+  const addProfile = async () => {
+    const userData = {
+      body: {
+        id: "aef4d53a-9d68-4412-b4fd-4acc5264775b",
+        email: "taehyun9202@hotmail.com",
+        username: "bisange",
+      },
+    };
+    try {
+      const newProfile = await API.post("amzprofile", "/profile", userData);
+      console.log(newProfile);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkProfile = async () => {
+    try {
+      const res = await API.get(
+        "amzprofile",
+        `/profile/aef4d53a-9d68-4412-b4fd-4acc5264775b`
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="bg-header">
       <div className="max-w-6xl mx-auto flex justify-between items-start text-gray-400 pt-10 pb-16 px-2 sm:px-4">
@@ -154,8 +182,16 @@ const Footer = () => {
           >
             Blog
           </p>
-          <p className="text-xs hover:underline cursor-pointer">About Amazon</p>
-          <p className="text-xs hover:underline cursor-pointer">
+          <p
+            onClick={() => addProfile()}
+            className="text-xs hover:underline cursor-pointer"
+          >
+            About Amazon
+          </p>
+          <p
+            onClick={() => checkProfile()}
+            className="text-xs hover:underline cursor-pointer"
+          >
             Sustainablity
           </p>
           <p className="text-xs hover:underline cursor-pointer">Press Center</p>
