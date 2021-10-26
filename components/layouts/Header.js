@@ -5,11 +5,23 @@ import HeaderInput from "../utils/HeaderInput";
 import CategoryBar from "./CategoryBar";
 import { useRouter } from "next/dist/client/router";
 import { setModalOpen } from "../../store/actions/utilAction";
+import { Auth } from "aws-amplify";
+import { logOut } from "../../store/actions/profileAction";
 
 const Header = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const router = useRouter();
+
+  const signOut = async () => {
+    console.log("sign out");
+    try {
+      await Auth.signOut({ global: true });
+      dispatch(logOut());
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className="bg-header px-2 sm:px-4 text-white gap-2">
@@ -65,7 +77,7 @@ const Header = () => {
             <div className="flex gap-1 justify-center items-center cursor-pointer h-10 p-1 ring-1 ring-transparent rounded-sm hover:ring-white">
               <div
                 onClick={() => {
-                  profile.token ? null : router.push("/profile/signIn");
+                  profile.token ? signOut() : router.push("/profile/signIn");
                 }}
               >
                 <p className="text-xs font-semibold line-clamp-1">

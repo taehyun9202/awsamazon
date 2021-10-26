@@ -60,6 +60,7 @@ const SignIn = () => {
               id: id,
               username: username,
               useremail: useremail,
+              cart: [],
             },
           });
           console.log(newProfile);

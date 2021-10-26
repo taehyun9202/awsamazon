@@ -6,7 +6,7 @@ import { setModalOpen } from "../../store/actions/utilAction";
 const CategoryBar = () => {
   const dispatch = useDispatch();
   return (
-    <div className="bg-category  text-white">
+    <div className="bg-category text-white">
       <div className="max-w-7xl mx-auto flex justify-between h-10 items-center px-2 sm:px-4 gap-1">
         <p
           onClick={() => dispatch(setModalOpen("menu", true))}

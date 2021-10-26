@@ -30,11 +30,7 @@ export const profileReducer = (state = initialState, action) => {
       };
 
     case LOG_OUT:
-      return {
-        ...state,
-        cognito: action.payload.cognito,
-        token: action.payload.token,
-      };
+      return initialState;
     default:
       return state;
   }

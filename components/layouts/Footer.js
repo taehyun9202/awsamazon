@@ -8,6 +8,7 @@ import { getProfile } from "../../store/actions/profileAction";
 import { getProducts } from "../../store/actions/productAction";
 
 const Footer = () => {
+  const profile = useSelector((state) => state.profile);
   const cognito = useSelector((state) => state.profile.cognito);
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Footer = () => {
   };
 
   useEffect(() => {
-    if (!cognito.email) {
+    if (profile.token && !cognito.email) {
       console.log("getting user");
       checkUser();
     }

@@ -1,4 +1,10 @@
-import { GET_USER, LOG_OUT, SET_EMAIL, SET_USERNAME } from "../types";
+import {
+  GET_USER,
+  LOG_OUT,
+  SET_EMAIL,
+  SET_USERNAME,
+  UPDATE_CART,
+} from "../types";
 
 export const getProfile = (user) => async (dispatch) => {
   const cognito = { ...user.attributes, username: user.username };
@@ -33,11 +39,15 @@ export const setUsername = (username) => async (dispatch) => {
   });
 };
 
+// export const updateCart = () => async (dispatch) => {
+//   dispatch({
+//     type: UPDATE_CART,
+//     payload: username,
+//   });
+// };
+
 export const logOut = () => async (dispatch) => {
-  const profile = {};
-  const token = {};
   dispatch({
     type: LOG_OUT,
-    payload: { profile, token },
   });
 };
