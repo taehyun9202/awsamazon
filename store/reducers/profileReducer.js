@@ -39,7 +39,7 @@ export const profileReducer = (state = initialState, action) => {
     case UPDATE_CART:
       return {
         ...state,
-        cart: [action.payload, ...state.cart],
+        cart: action.payload,
       };
 
     case LOG_OUT:

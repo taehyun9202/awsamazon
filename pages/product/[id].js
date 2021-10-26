@@ -12,6 +12,7 @@ import { updateCart } from "../../store/actions/profileAction";
 
 const Product = ({ product }) => {
   const profile = useSelector((state) => state.profile);
+  const id = useSelector((state) => state.profile.cognito.sub);
   const dispatch = useDispatch();
   const [selectedVariation, setSelectedVariation] = useState({});
   const [selectedImages, setSelectedImages] = useState(
@@ -87,7 +88,22 @@ const Product = ({ product }) => {
         );
 
     dispatch(setModalOpen("notification", true));
-    dispatch(updateCart(purchaseData));
+    API.post("amzprofile", "/profile", {
+      body: {
+        id: id,
+        username: profile.username,
+        useremail: profile.useremail,
+        cart: [...profile.cart, purchaseData],
+      },
+    })
+      .then((res) => {
+        API.get("amzprofile", `/profile/${id}`)
+          .then((res) => {
+            dispatch(updateCart(res.data.Item.cart));
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

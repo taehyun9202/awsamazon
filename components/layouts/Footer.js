@@ -4,7 +4,7 @@ import Link from "next/link";
 import Modals from "./Modals";
 import { Auth, API } from "aws-amplify";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile } from "../../store/actions/profileAction";
+import { getProfile, updateCart } from "../../store/actions/profileAction";
 import { getProducts } from "../../store/actions/productAction";
 
 const Footer = () => {
@@ -15,8 +15,18 @@ const Footer = () => {
 
   const checkUser = async () => {
     try {
+      console.log("check user");
       const user = await Auth.currentAuthenticatedUser();
+
+      console.log(user);
       dispatch(getProfile(user));
+
+      API.get("amzprofile", `/profile/${user.attributes.sub}`)
+        .then((res) => {
+          console.log(res);
+          dispatch(updateCart(res.data.Item.cart));
+        })
+        .catch((err) => console.log(err));
     } catch (err) {
       console.log(err);
     }
@@ -34,12 +44,9 @@ const Footer = () => {
       console.log("fetching prodcuts");
       dispatch(getProducts());
     }
-    fetchOne();
+    checkUser();
   }, []);
 
-  const fetchOne = async () => {
-    const res = await API.get("amzproductapi", "/product/001", {});
-  };
   const addProduct = async () => {
     const data = {
       body: {

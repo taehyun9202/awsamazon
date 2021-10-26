@@ -39,11 +39,10 @@ export const setUsername = (username) => async (dispatch) => {
   });
 };
 
-export const updateCart = (transaction) => async (dispatch) => {
-  console.log(transaction);
+export const updateCart = (cart) => async (dispatch) => {
   dispatch({
     type: UPDATE_CART,
-    payload: transaction,
+    payload: cart,
   });
 };
 

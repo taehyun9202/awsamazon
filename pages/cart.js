@@ -13,11 +13,11 @@ const Cart = () => {
               {cart.length > 0 ? "Shopping Cart" : "Your Amazon Cart is empty"}
             </p>
             {cart.length > 0 && <p>Select all items</p>}
-            <p className="absolute bottom-0 right-0">Price</p>
+            <p className="absolute bottom-0 right-4">Price</p>
           </div>
           <div className="flex flex-col">
             {cart.map((item) => (
-              <div className="p-4 border-b flex">
+              <div key={item.product.title} className="p-4 border-b flex gap-8">
                 <div className="relative w-40 h-40">
                   <Image
                     src={item.image}
@@ -25,37 +25,51 @@ const Cart = () => {
                     layout="fill"
                   />
                 </div>
-                <div>
-                  <p className="text-lg font-semibold">{item.product.title}</p>
-                  <div>
-                    {item.selectedVariation &&
-                      Object.keys(item.selectedVariation).map((variable) => (
-                        <p className="text-sm">
-                          <span className="font-semibold capitalize">
-                            {variable}:
-                          </span>{" "}
-                          {item.selectedVariation[variable]}
-                        </p>
-                      ))}
+                <div className="flex justify-between w-full">
+                  <div className="flex-1">
+                    <p className="text-lg font-semibold">
+                      {item.product.title}
+                    </p>
+                    <div>
+                      {item.selectedVariation &&
+                        Object.keys(item.selectedVariation).map((variable) => (
+                          <p
+                            key={item.product.title + variable}
+                            className="text-sm"
+                          >
+                            <span className="font-semibold capitalize">
+                              {variable}:
+                            </span>{" "}
+                            {item.selectedVariation[variable]}
+                          </p>
+                        ))}
+                    </div>
+                    <div className="flex gap-4 text-sm items-center">
+                      <select
+                        //   onChange={(e) => setQuantity(e.target.value)}
+                        // value={item.quantity}
+                        defaultValue={item.quantity}
+                        className="text-xs bg-gray-200 rounded-lg h-7 w-16 p-1 my-2"
+                      >
+                        <option value={1}>Qty: 1</option>
+                        <option value={2}>Qty: 2</option>
+                        <option value={3}>Qty: 3</option>
+                        <option value={4}>Qty: 4</option>
+                        <option value={5}>Qty: 5</option>
+                      </select>
+                      <p>Delete</p>
+                      <p>Save for later</p>
+                    </div>
                   </div>
-                  <div className="flex gap-4 text-sm items-center">
-                    <select
-                      //   onChange={(e) => setQuantity(e.target.value)}
-                      className="text-xs bg-gray-200 rounded-lg h-7 w-16 p-1 my-2"
-                    >
-                      <option value={1}>Qty: 1</option>
-                      <option value={2}>Qty: 2</option>
-                      <option value={3}>Qty: 3</option>
-                      <option value={4}>Qty: 4</option>
-                      <option value={5}>Qty: 5</option>
-                    </select>
-                    <p>Delete</p>
-                    <p>Save for later</p>
+                  <div>
+                    <p className="text-lg font-semibold">
+                      ${item.selectedPrice.toFixed(2)}
+                    </p>
                   </div>
                 </div>
               </div>
             ))}
-            <p className="text-right text-lg">
+            <p className="text-right pr-4 text-lg">
               Subtotal ({cart.length} items): {cart.length > 0 && "$100"}
             </p>
           </div>
