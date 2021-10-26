@@ -1,4 +1,10 @@
-import { GET_USER, LOG_OUT, SET_EMAIL, SET_USERNAME } from "../types";
+import {
+  GET_USER,
+  LOG_OUT,
+  SET_EMAIL,
+  SET_USERNAME,
+  UPDATE_CART,
+} from "../types";
 
 const initialState = {
   cognito: {},
@@ -6,6 +12,7 @@ const initialState = {
   email: "",
   username: "",
   loading: false,
+  cart: [],
 };
 
 export const profileReducer = (state = initialState, action) => {
@@ -27,6 +34,12 @@ export const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         username: action.payload,
+      };
+
+    case UPDATE_CART:
+      return {
+        ...state,
+        cart: [action.payload, ...state.cart],
       };
 
     case LOG_OUT:

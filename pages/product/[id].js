@@ -8,6 +8,7 @@ import {
   getProductDescription,
   getProductImage,
 } from "../../store/actions/productAction";
+import { updateCart } from "../../store/actions/profileAction";
 
 const Product = ({ product }) => {
   const profile = useSelector((state) => state.profile);
@@ -84,7 +85,9 @@ const Product = ({ product }) => {
             purchaseData
           )
         );
+
     dispatch(setModalOpen("notification", true));
+    dispatch(updateCart(purchaseData));
   };
 
   return (
@@ -162,11 +165,9 @@ const Product = ({ product }) => {
                       >
                         <p
                           className={`border max-w-max w-full px-2 py-1 cursor-pointer hover:border-yellow-400 hover:bg-gray-100 hover:shadow-lg
-                          ${
-                            selectedVariation &&
+                          ${selectedVariation &&
                             selectedVariation[variation] === choice &&
-                            "border-yellow-400 bg-gray-100 shadow-lg"
-                          }`}
+                            "border-yellow-400 bg-gray-100 shadow-lg"}`}
                         >
                           {choice}
                         </p>
@@ -219,7 +220,7 @@ const Product = ({ product }) => {
             <p className="text-red-500 text-lg">In Stock</p>
             <select
               onChange={(e) => setQuantity(e.target.value)}
-              className="text-xs bg-gray-200 rounded-lg h-7 w-16 px-0.5 py-1 my-2"
+              className="text-xs bg-gray-200 rounded-lg h-7 w-16 p-1 my-2"
             >
               <option value={1}>Qty: 1</option>
               <option value={2}>Qty: 2</option>

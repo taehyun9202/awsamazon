@@ -109,7 +109,10 @@ const Header = () => {
             </div>
 
             <div
-              onClick={() => dispatch(setModalOpen("cart", true))}
+              onClick={() => {
+                router.push("/cart");
+                // dispatch(setModalOpen("cart", true))
+              }}
               className="flex justify-center items-center cursor-pointer h-10 pt-3 p-1 ring-1 ring-transparent rounded-sm hover:ring-white"
             >
               <p className="relative flex gap-2">
@@ -129,7 +132,7 @@ const Header = () => {
                 </svg>
                 Cart
                 <span className="absolute bg-yellow-500 h-5 w-5 rounded-full flex justify-center items-center text-xs -top-2 left-3">
-                  20
+                  {profile.cart.length}
                 </span>
               </p>
             </div>
